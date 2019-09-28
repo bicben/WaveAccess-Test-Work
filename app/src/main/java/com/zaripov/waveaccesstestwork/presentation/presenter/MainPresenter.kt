@@ -44,14 +44,16 @@ class MainPresenter : MvpPresenter<MainView>() {
                     Log.i(TAG, "Models were in database: ${it.size}")
 
                     if (it.isEmpty()){
-                        viewState.displayText("LOADING...")
+                        viewState.setLoading(true)
                         fetchUsers()
                     } else {
-                        viewState.displayText(it.toString())
+                        viewState.setLoading(false)
+                        viewState.setData(it)
                     }
                 },
                     {
                         Log.e(TAG, it.toString())
+                        viewState.displayAlert(it.toString())
                     })
         )
     }
@@ -61,16 +63,29 @@ class MainPresenter : MvpPresenter<MainView>() {
             .subscribeOn(Schedulers.io())
             .flatMapCompletable {
                 Log.i(TAG, "Models were fetched and loaded: ${it.size}")
-                Completable.fromAction {
-                    repo.insertModels(it)
-                }
+                repo.insertModels(it)
             }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 Log.i(TAG, "Success")
             },{
                 Log.e(TAG, it.toString())
+                viewState.displayAlert(it.toString())
             })
+        )
+    }
+
+    fun deleteUsers(){
+        viewState.setLoading(true)
+        disposables.add(
+            repo.deleteUsers()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    Log.i(TAG, "DB was nuked successfully")
+                },{
+                    Log.e(TAG, it.toString())
+                })
         )
     }
 

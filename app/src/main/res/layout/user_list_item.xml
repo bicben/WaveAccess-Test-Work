@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="user"
+            type="com.zaripov.waveaccesstestwork.model.User" />
+        <variable
+            name="clickListener"
+            type="com.zaripov.waveaccesstestwork.adapters.UserlistClickListener" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:background="@color/colorPrimary"
+        android:onClick="@{() -> clickListener.onClick(user.id)}"
+        app:bind_user_list_bg="@{user}">
+
+        <ImageView
+            android:id="@+id/iv_person"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:bind_person_icon="@{user}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_person_48dp" />
+
+        <TextView
+            android:id="@+id/tv_list_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@{user.name}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintStart_toEndOf="@+id/iv_person"
+            app:layout_constraintTop_toTopOf="@+id/iv_person"
+            tools:text="Ivan Ivanov" />
+
+        <TextView
+            android:id="@+id/tv_list_item_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@{user.phone}"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_person"
+            app:layout_constraintStart_toEndOf="@+id/iv_person"
+            tools:text="88005553535" />
+
+        <TextView
+            android:id="@+id/tv_list_item_active"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:bind_user_active="@{user}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="active" />
+    </android.support.constraint.ConstraintLayout>
+</layout>

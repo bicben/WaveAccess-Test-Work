@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">WaveAccess Test Work</string>
+    <string name="clear_database">Clear database</string>
+    <string name="active">active</string>
+    <string name="inactive">inactive</string>
+    <string name="oops">Oops!</string>
+    <string name="confirmation">Confirmation</string>
+    <string name="are_you_sure">Are you sure you want to wipe the database?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

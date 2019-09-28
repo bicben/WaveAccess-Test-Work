@@ -4,25 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable
-            name="testText"
-            type="String" />
+
     </data>
 
-    <ScrollView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.activity.MainActivity">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:text="@{testText}"
-            android:id="@+id/tv_test"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_user_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            tools:listitem="@layout/user_list_item"
+            android:visibility="gone"/>
 
-    </ScrollView>
+        <ProgressBar
+            android:id="@+id/pb_user_list"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_gravity="center"
+            android:visibility="visible" />
+
+    </FrameLayout>
 </layout>

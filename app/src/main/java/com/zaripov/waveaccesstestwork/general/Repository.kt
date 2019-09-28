@@ -4,6 +4,7 @@ import com.zaripov.waveaccesstestwork.api.ApiService
 import com.zaripov.waveaccesstestwork.db.DBService
 import com.zaripov.waveaccesstestwork.db.WaveAccessDao
 import com.zaripov.waveaccesstestwork.model.Model
+import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 import retrofit2.Call
@@ -23,5 +24,7 @@ class Repository(
     fun getAllUsers(): Flowable<List<Model>> = dbService.getAllUsers()
     fun getUser(id: Long): Single<Model> = dbService.getUser(id)
 
-    fun insertModels(models: List<Model>) = dbService.insertModels(models)
+    fun insertModels(models: List<Model>): Completable = dbService.insertModels(models)
+
+    fun deleteUsers() = dbService.deleteUsers()
 }

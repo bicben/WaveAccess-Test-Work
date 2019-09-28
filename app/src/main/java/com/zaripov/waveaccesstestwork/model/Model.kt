@@ -16,7 +16,7 @@ class Model{
     lateinit var tags: List<Tag>
 
     override fun toString(): String {
-        return user.name
+        return "${user.name} ${friends.size} ${tags.size}\n"
     }
 }
 
