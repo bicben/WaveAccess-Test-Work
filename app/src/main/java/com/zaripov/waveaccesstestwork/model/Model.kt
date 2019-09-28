@@ -1,61 +1,64 @@
 package com.zaripov.waveaccesstestwork.model
 
-import com.google.gson.annotations.SerializedName
+import android.arch.persistence.room.Embedded
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.ForeignKey
+import android.arch.persistence.room.Relation
+import android.support.annotation.NonNull
 
 
-data class Model(
-    val user: User,
-    val friends: List<Friend>,
-    val tags: List<Tag>
-)
+class Model{
+    @Embedded
+    lateinit var user: User
+    @Relation(parentColumn = "id", entity = Friend::class, entityColumn = "userId")
+    lateinit var friends: List<Friend>
+    @Relation(parentColumn = "id", entity = Tag::class, entityColumn = "userId")
+    lateinit var tags: List<Tag>
 
+    override fun toString(): String {
+        return user.name
+    }
+}
+
+@Entity(primaryKeys = ["id"])
 data class User(
-    @SerializedName("about")
+    @NonNull
+    val id: Long,
     val about: String,
-    @SerializedName("address")
     val address: String,
-    @SerializedName("age")
     val age: Int,
-    @SerializedName("balance")
     val balance: String,
-    @SerializedName("company")
     val company: String,
-    @SerializedName("email")
     val email: String,
-    @SerializedName("eyeColor")
     val eyeColor: String,
-    @SerializedName("favoriteFruit")
     val favoriteFruit: String,
-    @SerializedName("gender")
     val gender: String,
-    @SerializedName("guid")
+    @NonNull
     val guid: String,
-    @SerializedName("id")
-    val id: Int,
-    @SerializedName("isActive")
     val isActive: Boolean,
-    @SerializedName("latitude")
     val latitude: Double,
-    @SerializedName("longitude")
     val longitude: Double,
-    @SerializedName("name")
     val name: String,
-    @SerializedName("phone")
     val phone: String,
-    @SerializedName("registered")
     val registered: Long
 )
 
+@Entity(foreignKeys = [ForeignKey(entity = User::class,
+    parentColumns = ["id"],
+    childColumns = ["userId"],
+    onDelete = ForeignKey.CASCADE)],
+    primaryKeys = ["userId", "friendId"])
 data class Friend(
-    @SerializedName("userId")
-    val userId: Int,
-    @SerializedName("friendId")
-    val friendId: Int
+    val userId: Long,
+    val friendId: Long
 )
 
+@Entity(foreignKeys = [ForeignKey(entity = User::class,
+    parentColumns = ["id"],
+    childColumns = ["userId"],
+    onDelete = ForeignKey.CASCADE)],
+    primaryKeys = ["userId", "tag"])
 data class Tag(
-    @SerializedName("userId")
-    val userId: Int,
-    @SerializedName("tag")
+    val userId: Long,
     val tag: String
 )

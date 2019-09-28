@@ -9,6 +9,7 @@ import com.zaripov.waveaccesstestwork.general.Repository
 import com.zaripov.waveaccesstestwork.general.WaveAccessApp
 import com.zaripov.waveaccesstestwork.presentation.view.MainView
 import com.zaripov.waveaccesstestwork.ui.activity.MainActivity
+import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -30,19 +31,24 @@ class MainPresenter : MvpPresenter<MainView>() {
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
 
-        //loadAndDisplayText()
         loadAndDisplayParsed()
     }
 
     private fun loadAndDisplayParsed() {
         Log.i(TAG, "loading a data...")
         disposables.add(
-            repo.fetchUsers()
+            repo.getAllUsers()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    Log.i(TAG, "Success! Models were fetched: ${it.size}")
-                    viewState.displayText(it.toString())
+                    Log.i(TAG, "Models were in database: ${it.size}")
+
+                    if (it.isEmpty()){
+                        viewState.displayText("LOADING...")
+                        fetchUsers()
+                    } else {
+                        viewState.displayText(it.toString())
+                    }
                 },
                     {
                         Log.e(TAG, it.toString())
@@ -50,21 +56,22 @@ class MainPresenter : MvpPresenter<MainView>() {
         )
     }
 
-    private fun loadAndDisplayText() {
-        Log.i(TAG, "loading a text")
-        repo.fetchRaw().enqueue(object : Callback<String> {
-            override fun onFailure(call: Call<String>, t: Throwable) {
-                Log.e(TAG, t.message)
+    private fun fetchUsers() {
+        disposables.add(repo.fetchUsers()
+            .subscribeOn(Schedulers.io())
+            .flatMapCompletable {
+                Log.i(TAG, "Models were fetched and loaded: ${it.size}")
+                Completable.fromAction {
+                    repo.insertModels(it)
+                }
             }
-
-            override fun onResponse(call: Call<String>, response: Response<String>) {
-                Log.i(TAG, "Success!")
-                response.body()?.let { viewState.displayText(it) } ?: Log.e(
-                    TAG,
-                    "but text is empty..."
-                )
-            }
-        })
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Log.i(TAG, "Success")
+            },{
+                Log.e(TAG, it.toString())
+            })
+        )
     }
 
     init {
@@ -74,6 +81,6 @@ class MainPresenter : MvpPresenter<MainView>() {
 
     override fun onDestroy() {
         super.onDestroy()
-
+        disposables.dispose()
     }
 }

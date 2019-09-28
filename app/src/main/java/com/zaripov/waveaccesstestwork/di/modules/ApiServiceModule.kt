@@ -105,7 +105,7 @@ class ApiServiceModule(private val baseUrl:String = Repository.BASE_URL) {
             val favoriteFruit = jsonObject.getAsJsonPrimitive("favoriteFruit").asString
             val gender = jsonObject.getAsJsonPrimitive("gender").asString
             val guid = jsonObject.getAsJsonPrimitive("guid").asString
-            val id = jsonObject.getAsJsonPrimitive("id").asInt
+            val id = jsonObject.getAsJsonPrimitive("id").asLong
             val isActive = jsonObject.getAsJsonPrimitive("isActive").asBoolean
             val latitude = jsonObject.getAsJsonPrimitive("latitude").asDouble
             val longitude = jsonObject.getAsJsonPrimitive("longitude").asDouble
@@ -118,6 +118,7 @@ class ApiServiceModule(private val baseUrl:String = Repository.BASE_URL) {
                 SimpleDateFormat("YYYY-MM-DD'T'hh:mm:ss z", Locale.ENGLISH).parse(registeredString).time
 
             val user = User(
+                id,
                 about,
                 address,
                 age,
@@ -128,7 +129,6 @@ class ApiServiceModule(private val baseUrl:String = Repository.BASE_URL) {
                 favoriteFruit,
                 gender,
                 guid,
-                id,
                 isActive,
                 latitude,
                 longitude,
@@ -145,12 +145,19 @@ class ApiServiceModule(private val baseUrl:String = Repository.BASE_URL) {
                 friends.add(
                     Friend(
                         id,
-                        it.asJsonObject.getAsJsonPrimitive("id").asInt
+                        it.asJsonObject.getAsJsonPrimitive("id").asLong
                     )
                 )
             }
 
-            return@JsonDeserializer Model(user, friends, tags)
+            val model = Model()
+            model.let {
+                it.user = user
+                it.friends = friends
+                it.tags = tags
+            }
+
+            return@JsonDeserializer model
         }
     }
 }
