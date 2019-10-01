@@ -2,8 +2,8 @@ package com.zaripov.waveaccesstestwork.general
 
 import com.zaripov.waveaccesstestwork.api.ApiService
 import com.zaripov.waveaccesstestwork.db.DBService
-import com.zaripov.waveaccesstestwork.db.WaveAccessDao
 import com.zaripov.waveaccesstestwork.model.Model
+import com.zaripov.waveaccesstestwork.model.User
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
@@ -18,11 +18,12 @@ class Repository(
         const val JSON = "users.json"
     }
 
-    fun fetchUsers(): Single<List<Model>> = apiService.getUsers()
-    fun fetchRaw() : Call<String> = apiService.getRaw()
+    fun fetchModels(): Single<List<Model>> = apiService.getUsers()
 
-    fun getAllUsers(): Flowable<List<Model>> = dbService.getAllUsers()
-    fun getUser(id: Long): Single<Model> = dbService.getUser(id)
+    fun getAllModels(): Flowable<List<Model>> = dbService.getAllModels()
+    fun getAllUsers(): Flowable<List<User>> = dbService.getAllusers()
+    fun getModel(id: Long): Single<Model> = dbService.getModel(id)
+    fun getFriends(ids: List<Long>) = dbService.getFriends(ids)
 
     fun insertModels(models: List<Model>): Completable = dbService.insertModels(models)
 

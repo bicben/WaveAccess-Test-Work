@@ -8,13 +8,14 @@ import android.support.v7.app.AlertDialog
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.zaripov.waveaccesstestwork.R
 import com.zaripov.waveaccesstestwork.adapters.UserlistAdapter
 import com.zaripov.waveaccesstestwork.adapters.UserlistClickListener
 import com.zaripov.waveaccesstestwork.databinding.ActivityMainBinding
-import com.zaripov.waveaccesstestwork.model.Model
+import com.zaripov.waveaccesstestwork.model.User
 import com.zaripov.waveaccesstestwork.presentation.presenter.MainPresenter
 import com.zaripov.waveaccesstestwork.presentation.view.MainView
 
@@ -40,6 +41,8 @@ class MainActivity : MvpAppCompatActivity(), MainView, UserlistClickListener {
         binding.lifecycleOwner = this
         binding.rvUserList.adapter = listAdapter
 
+        setSupportActionBar(binding.listViewToolbar)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -60,8 +63,8 @@ class MainActivity : MvpAppCompatActivity(), MainView, UserlistClickListener {
         return true
     }
 
-    override fun setData(models: List<Model>) {
-        listAdapter.models = models
+    override fun setData(users: List<User>) {
+        listAdapter.submitList(users)
     }
 
     override fun setLoading(loading: Boolean) {
@@ -81,7 +84,15 @@ class MainActivity : MvpAppCompatActivity(), MainView, UserlistClickListener {
             .show()
     }
 
-    override fun onClick(id: Long) {
+    override fun onClick(id: Long, active: Boolean) {
+        if (active) {
+            val intent = ProfileActivity.getIntent(this)
+            intent.putExtra(ProfileActivity.ID_KEY_EXTRA, id)
+
+            startActivity(intent)
+        } else {
+            Toast.makeText(this, getString(R.string.user_not_active), Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun nukeDb() {

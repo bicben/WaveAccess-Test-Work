@@ -1,21 +1,14 @@
 package com.zaripov.waveaccesstestwork.presentation.presenter
 
-import android.content.Context
-import android.content.Intent
 import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.zaripov.waveaccesstestwork.general.Repository
 import com.zaripov.waveaccesstestwork.general.WaveAccessApp
 import com.zaripov.waveaccesstestwork.presentation.view.MainView
-import com.zaripov.waveaccesstestwork.ui.activity.MainActivity
-import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import javax.inject.Inject
 
 @InjectViewState
@@ -31,17 +24,17 @@ class MainPresenter : MvpPresenter<MainView>() {
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
 
-        loadAndDisplayParsed()
+        loadAndDisplayDataFromDB()
     }
 
-    private fun loadAndDisplayParsed() {
+    private fun loadAndDisplayDataFromDB() {
         Log.i(TAG, "loading a data...")
         disposables.add(
             repo.getAllUsers()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    Log.i(TAG, "Models were in database: ${it.size}")
+                    Log.i(TAG, "Users were in database: ${it.size}")
 
                     if (it.isEmpty()){
                         viewState.setLoading(true)
@@ -59,7 +52,7 @@ class MainPresenter : MvpPresenter<MainView>() {
     }
 
     private fun fetchUsers() {
-        disposables.add(repo.fetchUsers()
+        disposables.add(repo.fetchModels()
             .subscribeOn(Schedulers.io())
             .flatMapCompletable {
                 Log.i(TAG, "Models were fetched and loaded: ${it.size}")

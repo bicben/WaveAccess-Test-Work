@@ -20,7 +20,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginEnd="4dp"
         android:background="@color/colorPrimary"
-        android:onClick="@{() -> clickListener.onClick(user.id)}"
+        android:onClick="@{() -> clickListener.onClick(user.id, user.active)}"
         app:bind_user_list_bg="@{user}">
 
         <ImageView
@@ -42,31 +42,32 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="@{user.name}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintStart_toEndOf="@+id/iv_person"
             app:layout_constraintTop_toTopOf="@+id/iv_person"
             tools:text="Ivan Ivanov" />
 
         <TextView
-            android:id="@+id/tv_list_item_phone"
+            android:id="@+id/tv_list_item_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="@{user.phone}"
+            android:text="@{user.email}"
             app:layout_constraintBottom_toBottomOf="@+id/iv_person"
             app:layout_constraintStart_toEndOf="@+id/iv_person"
-            tools:text="88005553535" />
+            tools:text="qwerty@asdf.org" />
 
         <TextView
             android:id="@+id/tv_list_item_active"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:bind_user_active="@{user}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="active" />
+
     </android.support.constraint.ConstraintLayout>
 </layout>

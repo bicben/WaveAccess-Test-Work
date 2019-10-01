@@ -8,10 +8,7 @@ import com.google.gson.JsonDeserializer
 import com.zaripov.waveaccesstestwork.api.ApiService
 import com.zaripov.waveaccesstestwork.api.WaveAccessApi
 import com.zaripov.waveaccesstestwork.general.Repository
-import com.zaripov.waveaccesstestwork.model.Friend
-import com.zaripov.waveaccesstestwork.model.Model
-import com.zaripov.waveaccesstestwork.model.Tag
-import com.zaripov.waveaccesstestwork.model.User
+import com.zaripov.waveaccesstestwork.model.*
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -25,7 +22,7 @@ import java.util.*
 import javax.inject.Singleton
 
 @Module
-class ApiServiceModule(private val baseUrl:String = Repository.BASE_URL) {
+class ApiServiceModule(private val baseUrl: String = Repository.BASE_URL) {
 
     @Provides
     @Singleton
@@ -70,7 +67,7 @@ class ApiServiceModule(private val baseUrl:String = Repository.BASE_URL) {
         return Retrofit.Builder()
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
-            //.addConverterFactory(ScalarsConverterFactory.create())
+        //.addConverterFactory(ScalarsConverterFactory.create())
     }
 
     @Provides
@@ -101,8 +98,6 @@ class ApiServiceModule(private val baseUrl:String = Repository.BASE_URL) {
             val balance = jsonObject.getAsJsonPrimitive("balance").asString
             val company = jsonObject.getAsJsonPrimitive("company").asString
             val email = jsonObject.getAsJsonPrimitive("email").asString
-            val eyeColor = jsonObject.getAsJsonPrimitive("eyeColor").asString
-            val favoriteFruit = jsonObject.getAsJsonPrimitive("favoriteFruit").asString
             val gender = jsonObject.getAsJsonPrimitive("gender").asString
             val guid = jsonObject.getAsJsonPrimitive("guid").asString
             val id = jsonObject.getAsJsonPrimitive("id").asLong
@@ -112,10 +107,16 @@ class ApiServiceModule(private val baseUrl:String = Repository.BASE_URL) {
             val name = jsonObject.getAsJsonPrimitive("name").asString
             val phone = jsonObject.getAsJsonPrimitive("phone").asString
 
+            val favoriteFruitString = jsonObject.getAsJsonPrimitive("favoriteFruit").asString
+            val favoriteFruit = Fruit.valueOf(favoriteFruitString.toUpperCase(Locale.ENGLISH))
+
+            val eyeColorString = jsonObject.getAsJsonPrimitive("eyeColor").asString
+            val eyeColor = EyeColor.valueOf(eyeColorString.toUpperCase(Locale.ENGLISH))
+
             val registeredString = jsonObject.getAsJsonPrimitive("registered").asString
-            Log.i("JsonDeserializer", "Parsing date...")
             val registered =
-                SimpleDateFormat("YYYY-MM-DD'T'hh:mm:ss z", Locale.ENGLISH).parse(registeredString).time
+                SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss XXX", Locale.ENGLISH).parse(registeredString)
+                    .time
 
             val user = User(
                 id,
@@ -157,6 +158,7 @@ class ApiServiceModule(private val baseUrl:String = Repository.BASE_URL) {
                 it.tags = tags
             }
 
+            Log.i("RetrofitModule", "Deserialization of $name complete")
             return@JsonDeserializer model
         }
     }

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+    <variable
+        name="user"
+        type="com.zaripov.waveaccesstestwork.model.User" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.fragment.InfoTabFragment">
+
+
+        <TextView
+            android:id="@+id/tv_info_gender_label"
+            style="@style/info_tab_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/gender"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/divider3"
+            style="@style/info_divider"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_info_eyecolor_label" />
+
+        <TextView
+            android:id="@+id/tv_info_age_label"
+            style="@style/info_tab_text"
+            android:layout_marginTop="8dp"
+            android:text="@string/age"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider10" />
+
+
+        <TextView
+            android:id="@+id/tv_info_age"
+            style="@style/info_tab_text"
+            bind_age="@{user}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="@+id/tv_info_age_label"
+            tools:text="27" />
+
+        <View
+            android:id="@+id/divider"
+            style="@style/info_divider"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_info_age_label" />
+
+        <TextView
+            android:id="@+id/tv_info_company_label"
+            style="@style/info_tab_text"
+            android:layout_marginTop="8dp"
+            android:text="@string/company"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+        <TextView
+            android:id="@+id/tv_info_company"
+            style="@style/info_tab_text"
+            android:text="@{user.company}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="@+id/tv_info_company_label"
+            tools:text="BUGSALL" />
+
+        <View
+            android:id="@+id/divider2"
+            style="@style/info_divider"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_info_company_label" />
+
+        <TextView
+            android:id="@+id/tv_info_eyecolor_label"
+            style="@style/info_tab_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/eye_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider11" />
+
+        <View
+            android:id="@+id/view_info_eyecolor"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/circle"
+            app:bind_eye_color="@{user}"
+            app:layout_constraintBottom_toTopOf="@+id/divider3"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/divider11" />
+
+        <TextView
+            android:id="@+id/tv_info_fruit_label"
+            style="@style/info_tab_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/favorite_fruit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider3" />
+
+        <TextView
+            android:id="@+id/tv_info_fruit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:text="@{user.favoriteFruit.code}"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/divider3"
+            tools:text="F" />
+
+        <TextView
+            android:id="@+id/tv_info_about_label"
+            style="@style/info_tab_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/about"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="@+id/tv_info_gender_label" />
+
+        <TextView
+            android:id="@+id/tv_info_about"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="@{user.about}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/tv_info_about_label"
+            tools:text="Ipsum non commodo cillum laboris cillum ipsum ipsum sunt laborum nisi qui ullamco pariatur. Fugiat dolore officia veniam minim culpa sit aute aliquip duis ad adipisicing proident. Quis commodo anim laboris Lorem et magna adipisicing est cupidatat minim excepteur tempor sit. Irure mollit ullamco aliqua sunt minim amet fugiat. Adipisicing amet fugiat non esse exercitation eu exercitation aliqua amet dolor reprehenderit et.\r\n" />
+
+        <View
+            android:id="@+id/divider10"
+            style="@style/info_divider"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_info_gender_label" />
+
+        <TextView
+            android:id="@+id/tv_info_gender"
+            style="@style/info_tab_text"
+            android:text="@{user.gender}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="@+id/tv_info_gender_label"
+            tools:text="female" />
+
+        <TextView
+            android:id="@+id/tv_info_registered_label"
+            style="@style/info_tab_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/registered"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider2" />
+
+        <View
+            android:id="@+id/divider11"
+            style="@style/info_divider"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_info_registered_label" />
+
+        <TextView
+            android:id="@+id/tv_info_registered"
+            style="@style/info_tab_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bind_registered="@{user}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="@+id/tv_info_registered_label"
+            tools:text="26:27 04.02.16" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="341dp" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

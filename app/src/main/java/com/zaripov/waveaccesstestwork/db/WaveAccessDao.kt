@@ -33,8 +33,14 @@ abstract class WaveAccessDao {
     @Transaction @Query("SELECT * FROM User")
     abstract fun getModels(): Flowable<List<Model>>
 
+    @Transaction @Query("SELECT * FROM User")
+    abstract fun getUsers(): Flowable<List<User>>
+
     @Transaction @Query("SELECT * FROM User WHERE id = :id")
     abstract fun getModel(id: Long): Single<Model>
+
+    @Transaction @Query("SELECT * FROM User WHERE id IN (:ids)")
+    abstract fun getFriends(ids: List<Long>): Single<List<User>>
 
     @Query("DELETE from User")
     abstract fun deleteAllUsers()

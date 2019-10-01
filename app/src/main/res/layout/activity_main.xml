@@ -7,25 +7,35 @@
 
     </data>
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_user_list"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/list_view_toolbar"
+            style="@style/Toolbar"/>
+
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-            tools:listitem="@layout/user_list_item"
-            android:visibility="gone"/>
+            android:layout_height="match_parent">
 
-        <ProgressBar
-            android:id="@+id/pb_user_list"
-            style="@style/Widget.AppCompat.ProgressBar"
-            android:layout_width="128dp"
-            android:layout_height="128dp"
-            android:layout_gravity="center"
-            android:visibility="visible" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_user_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                tools:listitem="@layout/user_list_item" />
 
-    </FrameLayout>
+            <ProgressBar
+                android:id="@+id/pb_user_list"
+                style="@style/Widget.AppCompat.ProgressBar"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_gravity="center"
+                android:visibility="visible" />
+
+        </FrameLayout>
+    </LinearLayout>
 </layout>

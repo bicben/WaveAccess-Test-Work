@@ -5,10 +5,11 @@ import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.zaripov.waveaccesstestwork.model.Model
+import com.zaripov.waveaccesstestwork.model.User
 
 interface MainView : MvpView{
     @StateStrategyType(AddToEndSingleStrategy::class)
-    fun setData(models: List<Model>)
+    fun setData(users: List<User>)
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun setLoading(loading: Boolean)
     @StateStrategyType(OneExecutionStateStrategy::class)

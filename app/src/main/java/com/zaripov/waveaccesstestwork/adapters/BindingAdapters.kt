@@ -1,11 +1,19 @@
 package com.zaripov.waveaccesstestwork.adapters
 
+import android.content.res.ColorStateList
 import android.databinding.BindingAdapter
 import android.support.constraint.ConstraintLayout
+import android.support.v4.content.ContextCompat
+import android.support.v4.view.ViewCompat
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.zaripov.waveaccesstestwork.R
+import com.zaripov.waveaccesstestwork.general.WaveAccessApp
+import com.zaripov.waveaccesstestwork.model.EyeColor
 import com.zaripov.waveaccesstestwork.model.User
+import java.text.SimpleDateFormat
+import java.util.*
 
 @BindingAdapter(value = ["bind_person_icon"])
 fun ImageView.bindPersonIcon(user: User?) {
@@ -41,6 +49,36 @@ fun ConstraintLayout.bindListItemBG(user: User?) {
             } else {
                 android.R.color.darker_gray
             }
+        )
+    }
+}
+
+@BindingAdapter(value = ["bind_age"])
+fun TextView.bindAge(user: User?) {
+    user?.let {
+        text = user.age.toString()
+    }
+}
+
+@BindingAdapter(value = ["bind_registered"])
+fun TextView.bindRegistered(user: User?){
+    user?.let {
+        val format = SimpleDateFormat("HH:mm dd.MM.yy", Locale.ENGLISH)
+        text = format.format(user.registered)
+    }
+}
+
+@BindingAdapter(value = ["bind_eye_color"])
+fun View.bindEyeColor(user: User?) {
+    user?.let {
+        ViewCompat.setBackgroundTintList(
+            this,
+            ColorStateList.valueOf(
+                ContextCompat.getColor(
+                    WaveAccessApp.instance,
+                    it.eyeColor.color
+                )
+            )
         )
     }
 }

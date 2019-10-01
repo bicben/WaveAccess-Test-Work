@@ -8,4 +8,17 @@
     <string name="are_you_sure">Are you sure you want to wipe the database?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    
+    <string name="info">Info</string>
+    <string name="contacts">Contacts</string>
+    <string name="friends">Friends</string>
+    <string name="user_not_active">The user is not active</string>
+    <string name="select_email_app">Select Email Sending App :</string>
+    <string name="age">Age</string>
+    <string name="company">Company</string>
+    <string name="eye_color">Eye color</string>
+    <string name="about">About</string>
+    <string name="favorite_fruit">Favorite fruit</string>
+    <string name="registered">Registered</string>
+    <string name="gender">Gender</string>
 </resources>
