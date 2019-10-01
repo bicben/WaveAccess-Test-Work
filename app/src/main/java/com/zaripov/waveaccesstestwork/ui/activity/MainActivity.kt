@@ -34,15 +34,13 @@ class MainActivity : MvpAppCompatActivity(), MainView, UserlistClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
         listAdapter = UserlistAdapter(this)
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.lifecycleOwner = this
         binding.rvUserList.adapter = listAdapter
 
         setSupportActionBar(binding.listViewToolbar)
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

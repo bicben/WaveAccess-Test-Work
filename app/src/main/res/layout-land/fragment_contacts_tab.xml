@@ -20,7 +20,7 @@
             android:id="@+id/iv_contacts_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -28,19 +28,21 @@
 
         <TextView
             android:id="@+id/tv_contacts_phone"
+            style="@style/contacts_text"
+            android:layout_marginEnd="8dp"
             android:text="@{user.phone}"
+            app:autoSizeTextType="uniform"
             app:layout_constraintBottom_toBottomOf="@+id/iv_contacts_phone"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toEndOf="@+id/iv_contacts_phone"
             app:layout_constraintTop_toTopOf="@+id/iv_contacts_phone"
-            tools:text="+1 (969) 407-3505"
-            style="@style/contacts_text" />
+            tools:text="+1 (969) 407-3505" />
 
         <ImageView
             android:id="@+id/iv_contacts_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_contacts_phone"
@@ -49,10 +51,12 @@
         <TextView
             android:id="@+id/tv_contacts_email"
             style="@style/contacts_text"
+            android:layout_marginEnd="8dp"
             android:text="@{user.email}"
+            android:textAlignment="viewStart"
             app:autoSizeTextType="uniform"
             app:layout_constraintBottom_toBottomOf="@+id/iv_contacts_email"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/iv_contacts_email"
             app:layout_constraintTop_toTopOf="@+id/iv_contacts_email"
@@ -62,10 +66,8 @@
             android:id="@+id/iv_contacts_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_contacts_email"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="@+id/iv_contacts_phone"
             app:srcCompat="@drawable/ic_home_48dp" />
 
         <TextView
@@ -83,9 +85,8 @@
             android:id="@+id/iv_contacts_coordinates"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toBottomOf="@+id/iv_contacts_address"
             app:srcCompat="@drawable/ic_location_48dp" />
 
@@ -99,6 +100,13 @@
             app:layout_constraintStart_toEndOf="@+id/iv_contacts_coordinates"
             app:layout_constraintTop_toTopOf="@+id/iv_contacts_coordinates"
             tools:text="-18.433394,177.401797" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="341dp" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

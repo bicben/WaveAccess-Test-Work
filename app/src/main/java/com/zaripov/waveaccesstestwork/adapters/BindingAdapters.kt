@@ -61,7 +61,7 @@ fun TextView.bindAge(user: User?) {
 }
 
 @BindingAdapter(value = ["bind_registered"])
-fun TextView.bindRegistered(user: User?){
+fun TextView.bindRegistered(user: User?) {
     user?.let {
         val format = SimpleDateFormat("HH:mm dd.MM.yy", Locale.ENGLISH)
         text = format.format(user.registered)
@@ -80,5 +80,15 @@ fun View.bindEyeColor(user: User?) {
                 )
             )
         )
+    }
+}
+
+fun Double.format(digits: Int): String = String.format("%.${digits}f", this)
+
+@BindingAdapter(value = ["bind_coordinates"])
+fun TextView.bindCoordinates(user: User?) {
+    user?.let {
+        val coordinates = "${user.latitude.format(6)},${user.longitude.format(6)}"
+        text = coordinates
     }
 }

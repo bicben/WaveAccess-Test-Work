@@ -40,9 +40,6 @@ class ProfileActivity : MvpAppCompatActivity(), ProfileView, TabFragmentInteract
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.i(TAG, "onCreate")
-        setContentView(R.layout.activity_profile)
-
         binding = DataBindingUtil.setContentView(this, R.layout.activity_profile)
 
         savedInstanceState ?: run {
@@ -52,7 +49,6 @@ class ProfileActivity : MvpAppCompatActivity(), ProfileView, TabFragmentInteract
     }
 
     override fun setData() {
-        Log.i(TAG, "setData")
         binding.user = mProfilePresenter.user
         inflatePageViewer()
     }
@@ -60,15 +56,6 @@ class ProfileActivity : MvpAppCompatActivity(), ProfileView, TabFragmentInteract
     override fun getUser() = mProfilePresenter.user
 
     override fun getFriends() = mProfilePresenter.friends
-
-    override fun makeCall(number: String) {
-    }
-
-    override fun makeEmail(address: String) {
-    }
-
-    override fun openMap(lat: Double, lon: Double) {
-    }
 
     private fun inflatePageViewer() {
         val pageAdapter = ProfilePagerAdapter(supportFragmentManager)
