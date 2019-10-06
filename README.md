@@ -1,7 +1,13 @@
 # WaveAccess-Test-Work
 ### A test app for WaveAccess company junior job
 
-Task:
+##### Task:
+
+Make an app that displays a list of people with an ability to see the information 
+about each specific person including the list of his/her friends and an ability to jump between them.
+Fetched data must be cached and NOT refetched again on the next launch. On the list screen must be an ability to reload cached data.
+
+##### General requirements
 
 language: java, kotlin, Xamarin.Android (C#)
 
@@ -25,3 +31,5 @@ Must contain screens:
   - values of firlds "latitude" and "longitude" are written in a single string according to standart coordinate format and pressing on it opens a map of the respective place
   - "friends" list is presented like a vertical list that looks and acts similarly to the list in item 1.
   - pressing "back" button translates back through the whole hierarchy not just stright to the list screen
+
+![](images/user_list_screen.png) &nbsp; ![](images/user_details_screen.png)
