@@ -24,6 +24,10 @@ import javax.inject.Singleton
 @Module
 class ApiServiceModule(private val baseUrl: String = Repository.BASE_URL) {
 
+    companion object{
+        private const val DATE_PATTERN = "yyyy-MM-dd'T'hh:mm:ss ZZZZZ"
+    }
+
     @Provides
     @Singleton
     fun provideApiService(waveAccessApi: WaveAccessApi): ApiService {
@@ -77,7 +81,7 @@ class ApiServiceModule(private val baseUrl: String = Repository.BASE_URL) {
             .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
             .setPrettyPrinting()
             .setLenient()
-            .setDateFormat("YYYY-MM-DD'T'hh:mm:ss z")
+            .setDateFormat(DATE_PATTERN)
             .registerTypeAdapter(Model::class.java, deserialiser)
             .create()
     }
@@ -115,7 +119,7 @@ class ApiServiceModule(private val baseUrl: String = Repository.BASE_URL) {
 
             val registeredString = jsonObject.getAsJsonPrimitive("registered").asString
             val registered =
-                SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss XXX", Locale.ENGLISH).parse(registeredString)
+                SimpleDateFormat(DATE_PATTERN, Locale.ENGLISH).parse(registeredString)
                     .time
 
             val user = User(
